@@ -1,0 +1,5 @@
+F:\Visual Studio\Wizardo\x64\Debug\Wizardo.vcxproj.AssemblyReference.cache
+F:\Visual Studio\Wizardo\x64\Debug\Wizardo.vcxproj.SuggestedBindingRedirects.cache
+F:\Visual Studio\Wizardo\x64\Debug\Wizardo.MyForm.resources
+F:\Visual Studio\Wizardo\x64\Debug\Wizardo.vcxproj.GenerateResource.cache
+F:\Visual Studio\Wizardo\x64\Debug\Wizardo.exe
