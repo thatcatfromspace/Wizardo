@@ -5,4 +5,4 @@ Wizardo also provides an optional password generator function that enables hassl
 
 ## Installation
 
-Install the .exe through the GitHub page [here.](https://github.com/thatcatfromspace/Wizardo).
+Install the .exe through the GitHub page [here.](https://github.com/thatcatfromspace/Wizardo)
