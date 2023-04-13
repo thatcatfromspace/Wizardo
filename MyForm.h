@@ -1,3 +1,6 @@
+#include <msclr/marshal_cppstd.h>
+#include <string>
+#include <cstdlib>
 #pragma once
 
 namespace Wizardo {
@@ -223,6 +226,7 @@ namespace Wizardo {
 			this->signUpLinkLabel->TabIndex = 9;
 			this->signUpLinkLabel->TabStop = true;
 			this->signUpLinkLabel->Text = L"Sign up.";
+			this->signUpLinkLabel->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MyForm::signUpLinkLabel_LinkClicked);
 			// 
 			// incorrectInfoLabel
 			// 
@@ -273,14 +277,23 @@ private: System::Void usernameTextBox_KeyDown(System::Object^ sender, System::Wi
 
 private: System::Void signInButton_Click(System::Object^ sender, System::EventArgs^ e) {
 	System::String^ username = usernameTextBox->Text, ^pass = passwordTextBox->Text;
-	if (username != "admin" || pass != "root") {
-		incorrectInfoLabel->Text = "Incorrect username or password.";
-	}
+	std::string Username = msclr::interop::marshal_as<std::string>(username);
+	std::string Password = msclr::interop::marshal_as<std::string>(pass);
+	std::string command = "py up.py"; //+ Username + " " + Password;
+	int exitCode = system(command.c_str());
+	if (exitCode == -1) incorrectInfoLabel->Text = "Unable to access database. Please contact the developers at https://github.com/thatcatfromspace";
 }
 private: System::Void passwordTextBox_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 	if (e->KeyValue == (int)Keys::Enter) {
 		signInButton->PerformClick();
 	}
+}
+private: System::Void signUpLinkLabel_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
+	usernamePromptLabel->Text = "Give yourself a username";
+	passwordPromptLabel->Text = "Choose a strong password";
+	signInButton->Text = "Sign Up";
+	signUpPromptLabel->Text = " ";
+	signUpLinkLabel->Text = " ";
 }
 };
 }
