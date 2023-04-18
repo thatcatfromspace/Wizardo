@@ -1,6 +1,10 @@
 #include <msclr/marshal_cppstd.h>
 #include <string>
-#include <cstdlib>
+#include <string.h>
+#include <shellapi.h>
+#include <Windows.h>
+#include <iostream>
+#include <fstream>
 #pragma once
 
 namespace Wizardo {
@@ -125,6 +129,7 @@ namespace Wizardo {
 			this->usernameTextBox->Name = L"usernameTextBox";
 			this->usernameTextBox->Size = System::Drawing::Size(242, 31);
 			this->usernameTextBox->TabIndex = 2;
+			this->usernameTextBox->TextChanged += gcnew System::EventHandler(this, &MyForm::usernameTextBox_TextChanged);
 			this->usernameTextBox->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::usernameTextBox_KeyDown);
 			// 
 			// panel1
@@ -269,19 +274,43 @@ namespace Wizardo {
 		}
 #pragma endregion
 
+//void encrypt(std::string username)
 private: System::Void usernameTextBox_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 	if (e->KeyValue == (int)Keys::Enter) {
 		passwordTextBox->Focus();
-	}
+	}	
 }
 
 private: System::Void signInButton_Click(System::Object^ sender, System::EventArgs^ e) {
 	System::String^ username = usernameTextBox->Text, ^pass = passwordTextBox->Text;
 	std::string Username = msclr::interop::marshal_as<std::string>(username);
 	std::string Password = msclr::interop::marshal_as<std::string>(pass);
-	std::string command = "py up.py"; //+ Username + " " + Password;
-	int exitCode = system(command.c_str());
-	if (exitCode == -1) incorrectInfoLabel->Text = "Unable to access database. Please contact the developers at https://github.com/thatcatfromspace";
+	std::string credentials = Username + " " + Password;
+	//LPCWSTR parameters = std::wstring(credentials.begin(), credentials.end()).c_str();
+	std::string filename = "example.txt";
+	std::ifstream file(filename);
+	if (!file.good())
+	{
+		file.close();
+		std::ofstream createFile(filename);
+		if (createFile.is_open())
+		{
+			createFile.close();
+		}
+	}
+	std::ofstream newfile;
+	newfile.open(filename, std::ofstream::out | std::ofstream::app); // Open file in append mode
+	if (file.is_open())
+	{
+		newfile << credentials << std::endl; // Write data to file
+		newfile.close(); // Close the file
+		MessageBox::Show("Data has been written to file successfully!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+	else
+	{
+		MessageBox::Show("Failed to write data to file!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+
 }
 private: System::Void passwordTextBox_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 	if (e->KeyValue == (int)Keys::Enter) {
@@ -294,6 +323,10 @@ private: System::Void signUpLinkLabel_LinkClicked(System::Object^ sender, System
 	signInButton->Text = "Sign Up";
 	signUpPromptLabel->Text = " ";
 	signUpLinkLabel->Text = " ";
+	passwordTextBox->Clear();
+	usernameTextBox->Clear();
+}
+private: System::Void usernameTextBox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }
