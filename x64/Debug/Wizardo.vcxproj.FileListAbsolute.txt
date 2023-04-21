@@ -3,3 +3,4 @@ F:\Visual Studio\Wizardo\x64\Debug\Wizardo.vcxproj.SuggestedBindingRedirects.cac
 F:\Visual Studio\Wizardo\x64\Debug\Wizardo.MyForm.resources
 F:\Visual Studio\Wizardo\x64\Debug\Wizardo.vcxproj.GenerateResource.cache
 F:\Visual Studio\Wizardo\x64\Debug\Wizardo.exe
+F:\Visual Studio\Wizardo\x64\Debug\Wizardo.MyForm1.resources

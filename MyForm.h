@@ -5,6 +5,9 @@
 #include <Windows.h>
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <vector>
+#include "MyForm1.h"
 #pragma once
 
 namespace Wizardo {
@@ -268,6 +271,7 @@ namespace Wizardo {
 			this->MinimumSize = System::Drawing::Size(918, 557);
 			this->Name = L"MyForm";
 			this->Text = L"Wizardo";
+			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -282,33 +286,61 @@ private: System::Void usernameTextBox_KeyDown(System::Object^ sender, System::Wi
 }
 
 private: System::Void signInButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	System::String^ username = usernameTextBox->Text, ^pass = passwordTextBox->Text;
+	System::String^ username = usernameTextBox->Text, ^ pass = passwordTextBox->Text;
 	std::string Username = msclr::interop::marshal_as<std::string>(username);
 	std::string Password = msclr::interop::marshal_as<std::string>(pass);
 	std::string credentials = Username + " " + Password;
-	//LPCWSTR parameters = std::wstring(credentials.begin(), credentials.end()).c_str();
-	std::string filename = "example.txt";
-	std::ifstream file(filename);
-	if (!file.good())
-	{
-		file.close();
-		std::ofstream createFile(filename);
-		if (createFile.is_open())
+	std::string filename = Username + ".txt";
+	if (signInButton->Text == "Sign Up") {
+		std::ifstream file(filename);
+		if (!file.good())
 		{
-			createFile.close();
+			file.close();
+			std::ofstream createFile(filename);
+			if (createFile.is_open())
+			{
+				createFile.close();
+			}
+		}
+		std::ofstream newfile;
+		newfile.open(filename, std::ofstream::out | std::ofstream::app);
+		if (file.is_open())
+		{
+			newfile << credentials << std::endl;
+			newfile.close();
+			MessageBox::Show("Data has been written to file successfully!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			loginSuccess();
+		}
+		else
+		{
+			MessageBox::Show("File created, confirm again.", "Success", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
-	std::ofstream newfile;
-	newfile.open(filename, std::ofstream::out | std::ofstream::app); // Open file in append mode
-	if (file.is_open())
-	{
-		newfile << credentials << std::endl; // Write data to file
-		newfile.close(); // Close the file
-		MessageBox::Show("Data has been written to file successfully!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
-	}
-	else
-	{
-		MessageBox::Show("Failed to write data to file!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	else if (signInButton->Text == "Sign In") {
+		std::ifstream file(filename, std::ifstream::_Nocreate);
+		std::string contents, credentials;
+		if (!file.is_open()) {
+			MessageBox::Show("User does not exist!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+		}
+		else {
+			while (std::getline(file, contents)) {
+				credentials = contents;
+			}
+		}
+		std::stringstream creds(credentials);
+		std::vector<std::string> words;
+		std::string word;
+		while (creds >> word) {
+			words.push_back(word);
+		}
+		if (words[0] == Username && words[1] == Password) {
+			MessageBox::Show("Successfully logged in!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			loginSuccess();
+		}
+		else {
+			MessageBox::Show("Incorrect username or password.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+
+		}
 	}
 
 }
@@ -327,6 +359,13 @@ private: System::Void signUpLinkLabel_LinkClicked(System::Object^ sender, System
 	usernameTextBox->Clear();
 }
 private: System::Void usernameTextBox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void loginSuccess() {
+	this->Hide();
+	Form^ mainWindow = gcnew MyForm1(this);
+	mainWindow->Show();
 }
 };
 }
