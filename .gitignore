@@ -33,3 +33,6 @@
 
 # Databases 
 *.opendb
+
+#Credential text files
+*.txt

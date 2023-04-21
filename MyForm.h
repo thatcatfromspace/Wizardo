@@ -290,7 +290,7 @@ private: System::Void signInButton_Click(System::Object^ sender, System::EventAr
 	std::string Username = msclr::interop::marshal_as<std::string>(username);
 	std::string Password = msclr::interop::marshal_as<std::string>(pass);
 	std::string credentials = Username + " " + Password;
-	std::string filename = Username + ".txt";
+	std::string filename = Username + ".bat";
 	if (signInButton->Text == "Sign Up") {
 		std::ifstream file(filename);
 		if (!file.good())
@@ -308,13 +308,13 @@ private: System::Void signInButton_Click(System::Object^ sender, System::EventAr
 		{
 			newfile << credentials << std::endl;
 			newfile.close();
-			MessageBox::Show("Data has been written to file successfully!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show("New account created succesfully!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			loginSuccess();
 		}
-		else
-		{
-			MessageBox::Show("File created, confirm again.", "Success", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		}
+		//else -----CONDITION NOT REQUIRED PAST TESTING-------
+		//{
+		//	MessageBox::Show("File created, confirm again.", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		//}
 	}
 	else if (signInButton->Text == "Sign In") {
 		std::ifstream file(filename, std::ifstream::_Nocreate);
