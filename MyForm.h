@@ -292,20 +292,9 @@ private: System::Void signInButton_Click(System::Object^ sender, System::EventAr
 	std::string credentials = Username + " " + Password;
 	std::string filename = Username + ".bat";
 	if (signInButton->Text == "Sign Up") {
-		std::ifstream file(filename);
-		if (!file.good())
-		{
-			file.close();
-			std::ofstream createFile(filename);
-			if (createFile.is_open())
-			{
-				createFile.close();
-			}
-		}
 		std::ofstream newfile;
-		newfile.open(filename, std::ofstream::out | std::ofstream::app);
-		if (file.is_open())
-		{
+		newfile.open(filename, std::ofstream::out | std::ofstream::app | std::ofstream::binary);
+		if (newfile.is_open()){
 			newfile << credentials << std::endl;
 			newfile.close();
 			MessageBox::Show("New account created succesfully!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
@@ -317,7 +306,7 @@ private: System::Void signInButton_Click(System::Object^ sender, System::EventAr
 		//}
 	}
 	else if (signInButton->Text == "Sign In") {
-		std::ifstream file(filename, std::ifstream::_Nocreate);
+		std::ifstream file(filename, std::ifstream::_Nocreate | std::ifstream::binary);
 		std::string contents, credentials;
 		if (!file.is_open()) {
 			MessageBox::Show("User does not exist!", "Error", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
@@ -342,7 +331,6 @@ private: System::Void signInButton_Click(System::Object^ sender, System::EventAr
 
 		}
 	}
-
 }
 private: System::Void passwordTextBox_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 	if (e->KeyValue == (int)Keys::Enter) {

@@ -1,8 +1,5 @@
 ﻿  MyForm.cpp
 F:\Visual Studio\Wizardo\MyForm1.h(331,14): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 F:\Visual Studio\Wizardo\MyForm.cpp(8,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
-  MyForm1.cpp
-F:\Visual Studio\Wizardo\MyForm1.h(331,14): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Generating Code...
   MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   Wizardo.vcxproj -> F:\Visual Studio\Wizardo\x64\Debug\Wizardo.exe

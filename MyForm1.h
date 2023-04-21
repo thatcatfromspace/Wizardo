@@ -332,11 +332,11 @@ private: System::Void panel2_Paint(System::Object^ sender, System::Windows::Form
 			for (int i = 0; i < 8; i++) {
 				newPassword += passwordPool[rand() % 51];
 			}
+			System::String^ newPasswordString = gcnew String(newPassword.c_str());
 			std::string messagePromptString = "Your password is " + newPassword;
 			System::String^ messagePrompt = gcnew String(messagePromptString.c_str());
 			MessageBox::Show(messagePrompt, "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			passwordEntry->Text = messagePrompt;
-
+			passwordEntry->Text = newPasswordString;
 		}
 	}
 private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
