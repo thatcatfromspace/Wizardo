@@ -4,3 +4,9 @@ F:\Visual Studio\Wizardo\x64\Debug\Wizardo.MyForm.resources
 F:\Visual Studio\Wizardo\x64\Debug\Wizardo.vcxproj.GenerateResource.cache
 F:\Visual Studio\Wizardo\x64\Debug\Wizardo.exe
 F:\Visual Studio\Wizardo\x64\Debug\Wizardo.MyForm1.resources
+C:\Users\admin\Source\Repos\Wizardo6\x64\Debug\Wizardo.vcxproj.AssemblyReference.cache
+C:\Users\admin\Source\Repos\Wizardo6\x64\Debug\Wizardo.vcxproj.SuggestedBindingRedirects.cache
+C:\Users\admin\Source\Repos\Wizardo6\x64\Debug\Wizardo.MyForm.resources
+C:\Users\admin\Source\Repos\Wizardo6\x64\Debug\Wizardo.MyForm1.resources
+C:\Users\admin\Source\Repos\Wizardo6\x64\Debug\Wizardo.vcxproj.GenerateResource.cache
+C:\Users\admin\Source\Repos\Wizardo6\x64\Debug\Wizardo.exe
