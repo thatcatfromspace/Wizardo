@@ -36,3 +36,4 @@
 
 #Credential text files
 *.txt
+/.vs/Wizardo/v17/Browse.VC.db
